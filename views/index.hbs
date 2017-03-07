@@ -1,2 +1,8 @@
 <h1>{{title}}</h1>
-<p>{{data}}</p>
+
+<div>
+  <h1>{{data.name}}</h1>
+{{#each weatherData}}
+  <p> {{this.main}}</p>
+{{/each}}
+</div>

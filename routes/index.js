@@ -5,16 +5,19 @@ var config = require('../config/config.js')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(config.appid);
-  var jsonData;
-  request('http://api.openweathermap.org/data/2.5/weather?q=London,us&appid='+config.appid, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-      jsonData = body;
-  }
-  console.log(jsonData);
-  res.render('index', { title: 'Weather sApp', data: jsonData});
+    var jsonData;
+    request('http://api.openweathermap.org/data/2.5/weather?q=London,us&appid=' + config.appid, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            jsonData = JSON.parse(body);
+        }
 
-});
+        res.render('index', {
+            title: 'Weather sApp',
+            weatherData: jsonData.weather,
+            data: jsonData
+        });
+
+    });
 
 });
 
