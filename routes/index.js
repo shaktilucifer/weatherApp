@@ -10,13 +10,18 @@ router.get('/', function(req, res, next) {
         if (!error && response.statusCode == 200) {
             jsonData = JSON.parse(body);
         }
-
-        res.render('index', {
-            title: 'Weather sApp',
-            weatherData: jsonData.weather,
-            data: jsonData
+        request('https://pixabay.com/api/?q=London&key=' + config.imageKey, function(error, response, body) {
+            console.log("here");
+            imageJsonData = JSON.parse(body);
+            imageDataString = body;
+            res.render('index', {
+                title: 'Weather sApp',
+                weatherData: jsonData.weather,
+                data: jsonData,
+                image: imageJsonData,
+                imgStr: imageDataString
+            });
         });
-
     });
 
 });
